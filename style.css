@@ -581,11 +581,12 @@ main section h2 {
 }
 
 footer {
-    background-color: white; /* 将背景色改为白色 */
+    /* background-color: white; /* 将背景色改为白色 */ */
     border-top: 1px solid hsla(230, 85%, 65%, 0.1);
     padding: 30px 0; /* 增加页脚上下内边距 */
     text-align: center; /* 页脚内容居中 */
     color: black; /* 将文字颜色改为黑色 */
+    /* margin-bottom: 50px; /* 确保页脚有足够的空间在下方 */ */
 }
 
 footer a {
