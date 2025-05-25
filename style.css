@@ -1,0 +1,1431 @@
+body {
+    font-family: var(--font-secondary);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.7;
+    overflow-x: hidden;
+    position: relative;
+    font-weight: 1; /* 尝试将字体变细 */
+}
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;700&family=Orbitron:wght@400;700&display=swap');
+
+@font-face {
+    font-family: 'AiNiZaiHuangHunRiLuoShouXieTi-2';
+    src: url('AiNiZaiHuangHunRiLuoShouXieTi-2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    /* 新的白色调配色方案 */
+    --primary-color: hsl(0, 0%, 20%); /* 主色调 - 深灰色 */
+    --secondary-color: hsl(0, 0%, 10%); /* 更深的灰色 */
+    --accent-color: hsl(0, 0%, 30%); /* 强调色 - 浅灰色 */
+    --background-color: #ffffff; /* 白色背景 */
+    --text-color: #333333; /* 深色文字 */
+    --card-bg-color: rgba(240, 240, 240, 0.8); /* 半透明浅灰卡片背景 */
+    
+    --glow-color-primary: hsla(0, 0%, 20%, 0.6);
+    --glow-color-secondary: hsla(0, 0%, 10%, 0.5);
+    --glow-color-accent: hsla(0, 0%, 30%, 0.5);
+    
+    --font-primary: 'AiNiZaiHuangHunRiLuoShouXieTi-2', sans-serif;
+    --font-secondary: 'AiNiZaiHuangHunRiLuoShouXieTi-2', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-secondary);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.7;
+    overflow-x: hidden;
+    position: relative; 
+}
+
+header {
+    padding: 20px 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding-top: 100px; /* 为悬浮导航栏留出空间 */
+}
+
+/* 座右铭背景文字样式 */
+.motto-background-text {
+    position: absolute; /* 定位，使其可以作为背景 */
+    top: 50%; /* 垂直居中 */
+    left: 0; /* 初始位置靠左 */
+    transform: translateY(-50%); /* 精确垂直居中 */
+    font-size: 15vw; /* 根据您的座右铭文本长度调整这个值 */
+    white-space: nowrap; /* 防止文字换行 */
+    color: rgba(0, 0, 0, 0.05); /* 设置文字颜色为非常浅的黑色，使其看起来像背景 */
+    pointer-events: none; /* 确保文字不影响鼠标事件 */
+    z-index: -1; /* 将文字放在其他内容下方 */
+    /* 添加一个CSS变量用于JavaScript控制横向位置 */
+    --scroll-offset: 0px;
+    transform: translateY(-50%) translateX(var(--scroll-offset));
+    font-family: 'AiNiZaiHuangHunRiLuoShouXieTi-2', sans-serif; /* 如果您想使用手写字体 */
+    font-weight: bold;
+}
+
+/* 修改导航栏初始位置 */
+/* 恢复导航栏悬浮效果 */
+nav {
+    position: fixed;
+    top: 20px; /* 恢复悬浮距离 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 25px; /* 调整内边距 */
+    background-color: rgba(255, 255, 255, 0.75); /* 毛玻璃白色背景 */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 1000;
+    border-radius: 10px; /* 添加圆角 */
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1); /* 调整阴影以适应白色背景 */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease, height 0.3s ease, top 0.3s ease;
+    height: 65px; /* 初始高度 */
+}
+
+nav.scrolled {
+    /* 滚动时保持悬浮效果 */
+    top: 10px;
+    background-color: rgba(255, 255, 255, 0.85); /* 滚动时可以稍微不透明 */
+}
+
+nav .logo h1 a {
+    font-family: var(--font-primary);
+    font-size: 1.5em; /* 调整Logo大小 */
+    text-decoration: none;
+    /* 移除背景渐变 */
+    /* background: linear-gradient(90deg, #e0f0ff, #ffffff, #e0f0ff); */
+    /* -webkit-background-clip: text; */
+    /* background-clip: text; */
+    /* color: transparent; */
+    color: #000000; /* 黑色文字 */
+    /* 移除动画 */
+    /* animation: subtle-gradient-text 8s ease-in-out infinite; */
+    /* background-size: 200% 100%; */
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    gap: 25px;
+}
+
+nav ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.95em; /* 调整导航链接字体大小 */
+    letter-spacing: 0.5px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: color 0.3s ease, text-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: var(--primary-color);
+    text-shadow: 0 0 8px var(--glow-color-primary);
+    background-color: hsla(230, 85%, 65%, 0.1);
+}
+
+.hero-section .main-title {
+    font-family: var(--font-primary);
+    font-size: 4.5em; /* 增大主标题字号 */
+    margin-bottom: 20px; /* 调整间距 */
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--primary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-flow 8s ease-in-out infinite;
+    background-size: 250% 200%;
+    text-shadow: 0 0 10px var(--glow-color-primary), 0 0 20px var(--glow-color-accent);
+}
+
+.hero-section .subtitle {
+    font-size: 1.8em; /* 增大副标题字号 */
+    margin-bottom: 40px; /* 调整间距 */
+    color: #b0c0e0; /* 更冷的副标题颜色 */
+}
+
+.dynamic-keyword {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-shadow: 0 0 3px var(--glow-color-primary);
+}
+
+.cta-button, .cta-button-small {
+    display: inline-block;
+    background: #ffffff; /* 白色背景 */
+    color: #000000; /* 黑色文字 */
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2), 0 0 20px rgba(0,0,0,0.15); /* 调整阴影以适应白色背景 */
+}
+
+.cta-button:hover, .cta-button-small:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 0 18px rgba(0,0,0,0.3), 0 0 35px rgba(0,0,0,0.25), 0 0 50px rgba(0,0,0,0.2); /* 调整悬停阴影 */
+    background: #f0f0f0; /* 悬停时可以稍微变灰 */
+    color: #000000; /* 悬停时文字仍为黑色 */
+}
+
+main section {
+    padding: 80px 5%; /* 稍微减少一些padding，如果需要可以调回100px */
+    border-bottom: 1px solid hsla(230, 85%, 65%, 0.08);
+    position: relative;
+    overflow: hidden; /* 确保动画元素不溢出 */
+}
+
+main section h2 {
+    font-family: var(--font-primary);
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 50px; /* 减少标题下方间距 */
+    background: linear-gradient(90deg, var(--primary-color), #e0f0ff, var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: black;
+    animation: gradient-flow 8s ease infinite alternate;
+    background-size: 200% 200%;
+}
+
+/* 全局逐字显示效果 (统一版本) */
+.reveal-chars-on-scroll span {
+    opacity: 0.3; /* 初始更暗 */
+    color: #888888; /* 初始灰色 */
+    transition: opacity 0.4s ease, color 0.4s ease, text-shadow 0.4s ease;
+    display: inline-block; 
+}
+
+.reveal-chars-on-scroll span.highlighted {
+    opacity: 1;
+    color: #000000; /* 最终点亮为黑色 */
+    text-shadow: none; /* 黑色文字通常不需要发光效果，可以移除 */
+}
+
+#about {
+    /* ... existing styles for #about ... */
+    position: relative; /* 保持 relative 定位 */
+    overflow: hidden;   /* 防止移动的背景图溢出 section */
+    /* 移除直接在 #about 上设置的 background-* 属性 */
+}
+
+#about::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('placeholder-profile.jpg');
+    background-repeat: no-repeat;
+    background-position: 100% 50%; /* 初始位置：右边垂直居中 */
+    background-size: auto 80%;    /* 图片高度为 #about 区域的 80%，您可以根据需要调整 */
+    opacity: 1.0; /* 设置图片透明度，0.3 表示 30% 不透明度，您可以调整这个值 */
+    z-index: 0;   /* 确保伪元素在内容之下 */
+    transition: background-position 0.1s linear; /* 为平滑移动添加过渡效果，可调整 */
+}
+
+#about h2,
+#about p {
+    position: relative; /* 确保文字在背景图之上 */
+    z-index: 1;         /* 确保文字在背景图之上 */
+    color: #333;       /* 示例颜色，请根据您的设计调整 */
+}
+
+/* 关于我 部分样式调整 */
+#about .about-text p {
+    font-size: 1.35em;
+    line-height: 1.8;
+    /* color: var(--text-color); /* 颜色由 .reveal-chars-on-scroll 控制 */
+    margin-bottom: 20px;
+}
+
+/* 移除旧的 .char-reveal-target 特定样式，如果还存在的话 */
+/* .char-reveal-target span { ... } */
+/* .char-reveal-target span.highlighted { ... } */
+
+/* 文字逐字点亮效果 - 适配蓝色调 */
+.char-reveal-target span {
+    opacity: 0.5; /* 初始透明度，使其看起来更暗或灰色 */
+    color: #888888; /* 初始灰色调 */
+    transition: opacity 0.5s ease, color 0.5s ease, text-shadow 0.5s ease; /* 添加 color 和 text-shadow 到过渡 */
+}
+
+.char-reveal-target span.highlighted {
+    opacity: 1;
+    color: #000000; /* 最终点亮为黑色 */
+    text-shadow: none; /* 黑色文字通常不需要发光效果，可以移除 */
+}
+
+
+/* 统一卡片基础样式 */
+.card-base {
+    background-color: var(--card-bg-color);
+    border: 1px solid hsla(230, 85%, 65%, 0.2);
+    border-radius: 8px;
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    margin-bottom: 30px; /* 为卡片之间添加一些间距 */
+}
+
+.card-base:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1), inset 0 0 20px rgba(200,200,200,0.15); /* 调整阴影 */
+    background-color: rgba(240, 240, 240, 0.8); /* 灰色偏白色悬停背景 */
+}
+
+/* 技术栈、作品集、博客文章列表容器 */
+.skills-grid,
+.portfolio-grid,
+.blog-posts-list {
+    display: grid;
+    gap: 30px;
+}
+
+/* 技术栈 - 横向词条墙 */
+.skills-tag-wall {
+    display: flex;
+    flex-wrap: wrap; /* 允许词条换行 */
+    justify-content: center; /* 居中排列词条 */
+    gap: 15px; /* 词条之间的间距 */
+    padding: 20px 0;
+}
+
+.skill-tag {
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    padding: 10px 20px;
+    border-radius: 25px; /* 更圆的胶囊形状 */
+    font-size: 0.95em;
+    font-weight: 500;
+    border: 1px solid hsla(230, 85%, 65%, 0.3);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+}
+
+.skill-tag:hover {
+    transform: translateY(-3px) scale(1.05);
+    background-color: rgba(240, 240, 240, 0.8); /* 灰色偏白色背景 */
+    color: #000000; /* 黑色文字 */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* 调整阴影 */
+    border-color: rgba(200, 200, 200, 0.5); /* 调整边框颜色 */
+}
+
+.skill-tag.active { /* 用于JS点击交互 */
+    background-color: var(--accent-color);
+    color: #81a2ff;
+    box-shadow: 0 2px 5px var(--glow-color-accent), inset 0 0 10px rgba(0,0,0,0.2);
+    transform: scale(0.95);
+}
+
+/* 作品集样式 */
+#portfolio {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+#portfolio h2 {
+    margin-bottom: 40px;
+    font-size: 2.5em;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 响应式网格布局 */
+    gap: 30px; /* 网格间距 */
+    max-width: 1200px;
+    margin: 0 auto; /* 居中显示 */
+}
+
+.portfolio-item {
+    background-color: var(--card-bg-color, #fff); /* 使用变量或直接颜色 */
+    padding: 25px;
+    border-radius: var(--card-border-radius, 8px);
+    box-shadow: var(--card-shadow, 0 4px 15px rgba(0, 0, 0, 0.1));
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portfolio-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover, 0 8px 25px rgba(0, 0, 0, 0.15));
+}
+
+.portfolio-item h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+}
+
+.portfolio-item h3 a {
+    text-decoration: none;
+    color: var(--primary-color, #333);
+    transition: color 0.3s ease;
+}
+
+.portfolio-item h3 a:hover {
+    color: var(--accent-color, #007bff);
+}
+
+.portfolio-item .repo-description {
+    font-size: 0.95em;
+    color: #555;
+    margin-bottom: 15px;
+    min-height: 50px; /* 给描述一个最小高度，防止不对齐 */
+}
+
+.portfolio-item .repo-meta {
+    font-size: 0.85em;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.portfolio-item .repo-meta span {
+    margin-right: 15px;
+}
+
+.portfolio-item .repo-meta span i {
+    margin-right: 5px;
+}
+
+.portfolio-item .cta-button-small {
+    display: inline-block;
+    padding: 8px 15px;
+    /* 样式可以继承您已有的 .cta-button-small 或重新定义 */
+}
+
+.loading-text, .error-text {
+    font-size: 1.2em;
+    color: #777;
+    padding: 20px;
+}
+
+.error-text {
+    color: var(--danger-color, red);
+}
+
+
+/* 滚动动画模块的基础样式 - 向上飞入效果 */
+.scroll-animated-module {
+    opacity: 0; /* 初始时透明 */
+    transform: translateY(50px); /* 初始时在下方50px的位置，可以调整这个值 */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* 过渡效果 */
+    /* 如果您希望每个元素有略微不同的延迟，可以在JS中动态添加，或者使用 :nth-child 配合 transition-delay */
+}
+
+.scroll-animated-module.is-visible {
+    opacity: 1; /* 动画结束时完全可见 */
+    transform: translateY(0); /* 动画结束时回到原始位置 */
+}
+
+/* 您可能已经有 .card-base 的样式，确保它不会覆盖 transform 或 opacity */
+.blog-post-item.card-base {
+    /* ... 您已有的 card-base 样式 ... */
+    /* 确保这里没有与上面动画冲突的 transform 或 opacity 设置，除非是刻意为之 */
+}
+
+/* 博客文章 - 横向带边框模块 */
+.blog-posts-horizontal-container {
+    display: flex; /* 使内部文章项横向排列 */
+    overflow-x: auto; /* 如果内容超出容器宽度，则显示水平滚动条 */
+    gap: 25px; /* 文章模块之间的间距 */
+    padding: 20px 5px; /* 给滚动条一些空间，并增加内边距 */
+    /* 为了更好的滚动体验，可以考虑添加以下属性 */
+    -webkit-overflow-scrolling: touch; /* iOS上的平滑滚动 */
+    scrollbar-width: thin; /* Firefox 滚动条样式 */
+    scrollbar-color: var(--primary-color) var(--card-bg-color); /* Firefox 滚动条颜色 */
+}
+
+/* Webkit 浏览器 (Chrome, Safari, Edge) 滚动条样式 */
+.blog-posts-horizontal-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.blog-posts-horizontal-container::-webkit-scrollbar-track {
+    background: var(--card-bg-color);
+    border-radius: 4px;
+}
+
+.blog-posts-horizontal-container::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 4px;
+    border: 2px solid var(--card-bg-color);
+}
+
+.blog-posts-horizontal-container .blog-post-item {
+    /* 继承 .card-base */
+    flex: 0 0 auto; /* 防止项目被压缩或拉伸，保持其原始宽度 */
+    width: 350px; /* 为每个博客文章模块设置一个固定宽度，或使用 min-width */
+    /* margin-bottom: 0; /* 因为是横向排列，底部的margin可能不需要了 */
+}
+
+/* 移除之前为 .blog-posts-list 设置的 grid-template-columns: 1fr; */
+/* 如果还存在 .blog-posts-list，确保其不与 .blog-posts-horizontal-container 冲突 */
+.blog-posts-list {
+    /* 如果不再使用这个类作为博客列表的直接容器，可以考虑移除或重构 */
+    /* display: grid; */ /* 注释掉或删除 */
+    /* grid-template-columns: 1fr; */ /* 注释掉或删除 */
+    /* gap: 30px; */ /* 注释掉或删除 */
+}
+
+
+.blog-post-item {
+    /* 继承 .card-base */
+}
+
+.blog-post-item h4 a {
+    font-family: var(--font-secondary);
+    font-size: 1.5em;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.blog-post-item h4 a:hover {
+    color: var(--accent-color);
+    text-decoration: none; /* 确保悬停时无下划线 */
+}
+
+.blog-post-item .post-meta {
+    font-size: 0.85em;
+    color: #a0b0d0; /* 较浅的元数据颜色 */
+    margin-bottom: 10px;
+}
+
+.blog-post-item p {
+    font-size: 1em;
+    color: var(--text-color);
+    margin-bottom: 0; /* 如果有摘要，可能不需要额外间距 */
+}
+
+/* 说说模块样式 */
+#shuo-shuo-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 响应式网格 */
+    gap: 20px; /* 便签之间的间距 */
+    padding: 20px; /* 容器内边距 */
+    max-width: 1200px; /* 设置最大宽度，根据需要调整 */
+    margin: 20px auto; /* 上下外边距 20px，左右自动，实现水平居中 */
+}
+
+.shuo-shuo-item {
+    background-color: var(--color-background-card); /* 使用卡片背景色，可以调整 */
+    color: var(--color-text-primary); /* 使用主要文本颜色 */
+    padding: 0; /* 保持内边距为 0，如果需要可以调整 */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'AiNiZaiHuangHunRiLuoShouXieTi-2', cursive; /* 使用手写体字体 */
+    white-space: pre-wrap; /* 保留换行符 */
+    text-align: center; /* 将文本居中显示 */
+}
+
+.shuo-shuo-item:hover {
+    transform: translateY(-5px) scale(1.02); /* 悬停上浮效果 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.shuo-shuo-item .timestamp {
+    display: block; /* 确保时间戳独占一行 */
+    font-size: 0.8em;
+    color: var(--color-text-secondary); /* 使用次要文本颜色 */
+    margin-top: 10px; /* 在说说内容和时间戳之间添加一些间距 */
+    text-align: center; /* 将时间戳居中显示 */
+}
+
+/* Particles.js 容器样式 */
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -10;
+    background-color: var(--background-color);
+}
+
+/* 确保其他元素的颜色也已更新，例如 social-links, footer 等 */
+.social-links a:hover {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--glow-color-primary);
+}
+
+footer {
+    background-color: white; /* 将背景色改为白色 */
+    border-top: 1px solid hsla(230, 85%, 65%, 0.1);
+    padding: 30px 0; /* 增加页脚上下内边距 */
+    text-align: center; /* 页脚内容居中 */
+    color: black; /* 将文字颜色改为黑色 */
+}
+
+footer a {
+    color: black; /* 将页脚内链接颜色改为黑色 */
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.95em;
+}
+
+/* 文字逐字点亮效果 - 适配蓝色调 */
+.char-reveal-target span.highlighted {
+    opacity: 1;
+    color: #ffffff; /* 最终点亮为白色 */
+    text-shadow: 0 0 8px rgba(200, 220, 255, 0.7),
+                 0 0 15px var(--glow-color-primary); 
+}
+
+#announcement-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* 半透明黑色背景 */
+    backdrop-filter: blur(10px); /* 毛玻璃效果 */
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 2000; /* 确保在最上层 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#announcement-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.announcement-box {
+    background-color: var(--card-bg-color); /* 使用卡片背景色 */
+    border: 1px solid var(--primary-color); /* 边框颜色 */
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 0 20px var(--glow-color-primary);
+    position: relative;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+
+.announcement-box h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.8em;
+    font-family: var(--font-primary);
+}
+
+.announcement-box p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.announcement-box .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.announcement-box .close-btn:hover {
+    color: var(--accent-color);
+}
+
+/* 音乐播放按钮拟物风格 */
+#musicToggleBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white; /* 将背景色改为白色 */
+    color: black; /* 将文字颜色改为黑色 */
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 调整阴影以适应白色背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 999; /* 确保在导航栏之下，但在其他内容之上 */
+}
+
+#musicToggleBtn:active,
+#musicToggleBtn:focus {
+    transform: translateY(-3px); /* 向上移动 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 调整阴影以模拟上浮 */
+}
+
+#musicToggleBtn i {
+    text-shadow: 0 0 5px var(--glow-color-primary);
+}
+#musicToggleBtn:hover {
+    background-color: white; /* 将鼠标悬停时的背景色改为白色 */
+}
+
+/* 修改联系我部分为文字 */
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.social-links a {
+    font-size: 1.2em;
+    text-decoration: none;
+}
+.social-links a i {
+    display: none; /* 隐藏图标 */
+}
+
+/* 联系我 部分样式 */
+#contact .contact-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 响应式网格布局 */
+    gap: 25px; /* box 之间的间距 */
+    margin-top: 30px;
+}
+
+#contact .contact-box {
+    /* 继承 .card-base 样式 */
+    text-align: center;
+    padding: 30px 20px;
+}
+
+#contact .contact-box h3 {
+    font-family: var(--font-primary);
+    font-size: 1.8em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+#contact .contact-box p a {
+    font-size: 1.1em;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#contact .contact-box p a:hover {
+    color: var(--accent-color);
+}
+
+.contact-box p a {
+    font-size: 1.1em;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-box p a:hover {
+    color: var(--accent-color);
+}
+
+/* 页面加载动画样式 */
+#page-loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color); /* 使用背景色 */
+    z-index: 10000; /* 确保在最顶层 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out; /* 添加过渡效果 */
+    opacity: 1;
+    visibility: visible;
+
+    /* 鸿蒙毛玻璃风格 */
+    background-color: rgba(10, 15, 31, 0.85); /* 半透明背景 */
+    backdrop-filter: blur(30px); /* 毛玻璃效果 */
+    -webkit-backdrop-filter: blur(30px);
+}
+
+#page-loading-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* 隐藏后禁用鼠标事件 */
+}
+
+/* 移除机械风格加载器样式 */
+/*
+.mechanical-loader {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gear {
+    position: absolute;
+    border: 3px solid var(--primary-color);
+    border-radius: 50%;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px var(--glow-color-primary);
+}
+
+.gear-1 {
+    width: 80px;
+    height: 80px;
+    animation: rotate-clockwise 6s linear infinite;
+}
+
+.gear-2 {
+    width: 120px;
+    height: 120px;
+    animation: rotate-counter-clockwise 8s linear infinite;
+}
+
+.line {
+    position: absolute;
+    background-color: var(--accent-color);
+    box-shadow: 0 0 5px var(--glow-color-accent);
+}
+
+.line-1 {
+    width: 100%;
+    height: 4px;
+    transform: rotate(0deg);
+    animation: pulse-line 2s ease-in-out infinite;
+}
+
+.line-2 {
+    width: 100%;
+    height: 4px;
+    transform: rotate(45deg);
+    animation: pulse-line 2s ease-in-out infinite 0.5s;
+}
+
+.line-3 {
+    width: 100%;
+    height: 4px;
+    transform: rotate(90deg);
+    animation: pulse-line 2s ease-in-out infinite 1s;
+}
+
+.line-4 {
+    width: 100%;
+    height: 4px;
+    transform: rotate(135deg);
+    animation: pulse-line 2s ease-in-out infinite 1.5s;
+}
+
+.loading-text {
+    position: absolute;
+    font-family: var(--font-primary);
+    font-size: 1.2em;
+    color: #ffffff;
+    text-shadow: 0 0 8px var(--glow-color-primary);
+    animation: text-glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes rotate-clockwise {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes rotate-counter-clockwise {
+    0% { transform: rotate(0deg); } /* 修正为从0度开始 */
+    100% { transform: rotate(-360deg); }
+}
+
+@keyframes pulse-line {
+    0% { transform: scaleX(0.5) rotate(var(--rotation, 0deg)); opacity: 0.7; } /* 添加旋转保持 */
+    100% { transform: scaleX(1) rotate(var(--rotation, 0deg)); opacity: 1; } /* 添加旋转保持 */
+}
+
+/* 为每条线设置不同的旋转角度变量 */
+.line-1 { --rotation: 0deg; }
+.line-2 { --rotation: 45deg; }
+.line-3 { --rotation: 90deg; }
+.line-4 { --rotation: 135deg; }
+
+@keyframes text-glow {
+    0% { text-shadow: 0 0 5px var(--glow-color-primary); } /* 调整发光效果 */
+    100% { text-shadow: 0 0 15px var(--glow-color-accent), 0 0 25px var(--glow-color-primary); }
+}
+*/
+
+/* 添加鸿蒙毛玻璃风格加载动画内容 */
+.harmony-loader {
+    width: 120px; /* 调整大小以容纳圆球 */
+    height: 120px; /* 调整大小以容纳圆球 */
+    position: relative;
+    display: flex; /* 使用 flex 布局居中圆球容器 */
+    justify-content: center;
+    align-items: center;
+}
+
+.harmony-loader .circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-top-color: var(--primary-color);
+    animation: spin 1.2s linear infinite;
+}
+
+.harmony-loader .circle:nth-child(1) {
+    animation-delay: 0s;
+    border-top-color: var(--primary-color);
+}
+
+.harmony-loader .circle:nth-child(2) {
+    animation-delay: -0.4s;
+    border-top-color: var(--accent-color);
+}
+
+.harmony-loader .circle:nth-child(3) {
+    animation-delay: -0.8s;
+    border-top-color: #ffffff; /* 使用白色或浅色 */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.harmony-loader .loading-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-primary);
+    font-size: 1em;
+    color: #ffffff;
+    text-shadow: 0 0 8px var(--glow-color-primary);
+    animation: text-glow 1.5s ease-in-out infinite alternate;
+}
+
+/* 保持 text-glow 动画 */
+@keyframes text-glow {
+    0% { text-shadow: 0 0 5px var(--glow-color-primary); }
+    100% { text-shadow: 0 0 15px var(--glow-color-accent), 0 0 25px var(--glow-color-primary); }
+}
+
+/* 圆球消散动画容器 */
+.dissolving-spheres {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 确保圆球容器在旋转圆环和文本之下 */
+    z-index: 1;
+}
+
+.dissolving-spheres .sphere {
+    position: absolute;
+    width: 15px; /* 圆球大小 */
+    height: 15px; /* 圆球大小 */
+    border-radius: 50%;
+    background-color: var(--accent-color); /* 圆球颜色 */
+    /* 初始状态由动画控制，移除这里的 opacity 和 transform */
+    /* opacity: 0; */
+    /* transform: scale(0); */
+    animation: dissolve-sphere 2s ease-out infinite; /* 消散动画 */
+}
+
+/* 为不同的圆球设置不同的动画延迟 */
+.dissolving-spheres .sphere:nth-child(1) { animation-delay: 0s; }
+.dissolving-spheres .sphere:nth-child(2) { animation-delay: 0.2s; }
+.dissolving-spheres .sphere:nth-child(3) { animation-delay: 0.4s; }
+.dissolving-spheres .sphere:nth-child(4) { animation-delay: 0.6s; }
+.dissolving-spheres .sphere:nth-child(5) { animation-delay: 0.8s; }
+/* 可以根据需要为更多圆球添加延迟 */
+
+/* 圆球消散动画 - 从中心向外扩散消散 */
+@keyframes dissolve-sphere {
+    0% {
+        opacity: 1; /* 初始可见 */
+        transform: scale(0.2); /* 初始大小较小 */
+    }
+    100% {
+        opacity: 0; /* 最终完全透明 */
+        transform: scale(2); /* 最终放大 */
+    }
+}
+
+/* 移除之前为实现随机位置添加的 CSS 变量相关的注释 */
+/* 为了实现随机位置，可以在 JS 中为每个 sphere 元素设置 --random-x 和 --random-y CSS 变量 */
+/* 禁止文本选择 */
+body {
+    user-select: none; /* 标准属性 */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+/* 鼠标点击圆球效果样式 */
+.click-sphere {
+    position: fixed; /* 固定定位，相对于视口 */
+    width: 20px; /* 圆球大小 */
+    height: 20px; /* 圆球大小 */
+    border-radius: 50%;
+    background-color: var(--primary-color); /* 圆球颜色，可以使用主色调 */
+    pointer-events: none; /* 确保圆球不影响鼠标事件 */
+    z-index: 9999; /* 确保在大多数元素之上 */
+    transform: translate(-50%, -50%); /* 使圆球中心位于点击位置 */
+    animation: click-dissolve 1s ease-out forwards; /* 应用消散动画 */
+}
+
+/* 鼠标点击圆球消散动画 */
+@keyframes click-dissolve {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(3); /* 放大消散 */
+    }
+}
+
+/* 动态手写素描格背景 */
+body.sketch-background {
+    background-color: #ffffff; /* 确保背景是白色 */
+    /* 使用 repeating-linear-gradient 创建素描网格 */
+    background-image: repeating-linear-gradient(0deg, #e0e0e0, #e0e0e0 1px, transparent 1px, transparent 20px),
+                      repeating-linear-gradient(90deg, #e0e0e0, #e0e0e0 1px, transparent 1px, transparent 20px);
+    background-size: 20px 20px; /* 控制网格大小 */
+    background-attachment: fixed; /* 背景不随页面滚动 */
+    /* 初始背景位置，后续通过JS动态调整 */
+    background-position: 0 0;
+}
+
+/* 如果您之前有为 body 设置其他背景相关的样式，可能需要调整或移除，确保 .sketch-background 的样式生效 */
+#page-loading-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* 隐藏后禁用鼠标事件 */
+}
+
+/* 移除机械风格加载器样式 */
+/*
+.mechanical-loader {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gear {
+    position: absolute;
+    border: 3px solid var(--primary-color);
+    border-radius: 50%;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px var(--glow-color-primary);
+}
+
+.gear-1 {
+    width: 80px;
+    height: 80px;
+    animation: rotate-clockwise 6s linear infinite;
+}
+
+.gear-2 {
+    width: 120px;
+    height: 120px;
+    animation: rotate-counter-clockwise 8s linear infinite;
+}
+
+.line {
+    position: absolute;
+    background-color: var(--accent-color);
+    box-shadow: 0 0 5px var(--glow-color-accent);
+}
+
+.line-1 {
+    width: 100%;
+    height: 4px;
+    transform: rotate(0deg);
+    animation: pulse-line 2s ease-in-out infinite;
+}
+
+.line-2 {
+    width: 100%;
+    height: 4px;
+    transform: rotate(45deg);
+    animation: pulse-line 2s ease-in-out infinite 0.5s;
+}
+
+.line-3 {
+    width: 100%;
+    height: 4px;
+    transform: rotate(90deg);
+    animation: pulse-line 2s ease-in-out infinite 1s;
+}
+
+.line-4 {
+    width: 100%;
+    height: 4px;
+    transform: rotate(135deg);
+    animation: pulse-line 2s ease-in-out infinite 1.5s;
+}
+
+.loading-text {
+    position: absolute;
+    font-family: var(--font-primary);
+    font-size: 1.2em;
+    color: #ffffff;
+    text-shadow: 0 0 8px var(--glow-color-primary);
+    animation: text-glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes rotate-clockwise {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes rotate-counter-clockwise {
+    0% { transform: rotate(0deg); } /* 修正为从0度开始 */
+    100% { transform: rotate(-360deg); }
+}
+
+@keyframes pulse-line {
+    0% { transform: scaleX(0.5) rotate(var(--rotation, 0deg)); opacity: 0.7; } /* 添加旋转保持 */
+    100% { transform: scaleX(1) rotate(var(--rotation, 0deg)); opacity: 1; } /* 添加旋转保持 */
+}
+
+/* 为每条线设置不同的旋转角度变量 */
+.line-1 { --rotation: 0deg; }
+.line-2 { --rotation: 45deg; }
+.line-3 { --rotation: 90deg; }
+.line-4 { --rotation: 135deg; }
+
+@keyframes text-glow {
+    0% { text-shadow: 0 0 5px var(--glow-color-primary); } /* 调整发光效果 */
+    100% { text-shadow: 0 0 15px var(--glow-color-accent), 0 0 25px var(--glow-color-primary); }
+}
+*/
+
+/* 添加鸿蒙毛玻璃风格加载动画内容 */
+.harmony-loader {
+    width: 120px; /* 调整大小以容纳圆球 */
+    height: 120px; /* 调整大小以容纳圆球 */
+    position: relative;
+    display: flex; /* 使用 flex 布局居中圆球容器 */
+    justify-content: center;
+    align-items: center;
+}
+
+.harmony-loader .circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-top-color: var(--primary-color);
+    animation: spin 1.2s linear infinite;
+}
+
+.harmony-loader .circle:nth-child(1) {
+    animation-delay: 0s;
+    border-top-color: var(--primary-color);
+}
+
+.harmony-loader .circle:nth-child(2) {
+    animation-delay: -0.4s;
+    border-top-color: var(--accent-color);
+}
+
+.harmony-loader .circle:nth-child(3) {
+    animation-delay: -0.8s;
+    border-top-color: #ffffff; /* 使用白色或浅色 */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.harmony-loader .loading-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-primary);
+    font-size: 1em;
+    color: #ffffff;
+    text-shadow: 0 0 8px var(--glow-color-primary);
+    animation: text-glow 1.5s ease-in-out infinite alternate;
+}
+
+/* 保持 text-glow 动画 */
+@keyframes text-glow {
+    0% { text-shadow: 0 0 5px var(--glow-color-primary); }
+    100% { text-shadow: 0 0 15px var(--glow-color-accent), 0 0 25px var(--glow-color-primary); }
+}
+
+/* 圆球消散动画容器 */
+.dissolving-spheres {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 确保圆球容器在旋转圆环和文本之下 */
+    z-index: 1;
+}
+
+.dissolving-spheres .sphere {
+    position: absolute;
+    width: 15px; /* 圆球大小 */
+    height: 15px; /* 圆球大小 */
+    border-radius: 50%;
+    background-color: var(--accent-color); /* 圆球颜色 */
+    /* 初始状态由动画控制，移除这里的 opacity 和 transform */
+    /* opacity: 0; */
+    /* transform: scale(0); */
+    animation: dissolve-sphere 2s ease-out infinite; /* 消散动画 */
+}
+
+/* 为不同的圆球设置不同的动画延迟 */
+.dissolving-spheres .sphere:nth-child(1) { animation-delay: 0s; }
+.dissolving-spheres .sphere:nth-child(2) { animation-delay: 0.2s; }
+.dissolving-spheres .sphere:nth-child(3) { animation-delay: 0.4s; }
+.dissolving-spheres .sphere:nth-child(4) { animation-delay: 0.6s; }
+.dissolving-spheres .sphere:nth-child(5) { animation-delay: 0.8s; }
+/* 可以根据需要为更多圆球添加延迟 */
+
+/* 圆球消散动画 - 从中心向外扩散消散 */
+@keyframes dissolve-sphere {
+    0% {
+        opacity: 1; /* 初始可见 */
+        transform: scale(0.2); /* 初始大小较小 */
+    }
+    100% {
+        opacity: 0; /* 最终完全透明 */
+        transform: scale(2); /* 最终放大 */
+    }
+}
+
+/* 移除之前为实现随机位置添加的 CSS 变量相关的注释 */
+/* 为了实现随机位置，可以在 JS 中为每个 sphere 元素设置 --random-x 和 --random-y CSS 变量 */
+/* 禁止文本选择 */
+body {
+    user-select: none; /* 标准属性 */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+/* 鼠标点击圆球效果样式 */
+.click-sphere {
+    position: fixed; /* 固定定位，相对于视口 */
+    width: 20px; /* 圆球大小 */
+    height: 20px; /* 圆球大小 */
+    border-radius: 50%;
+    background-color: var(--primary-color); /* 圆球颜色，可以使用主色调 */
+    pointer-events: none; /* 确保圆球不影响鼠标事件 */
+    z-index: 9999; /* 确保在大多数元素之上 */
+    transform: translate(-50%, -50%); /* 使圆球中心位于点击位置 */
+    animation: click-dissolve 1s ease-out forwards; /* 应用消散动画 */
+}
+
+/* 鼠标点击圆球消散动画 */
+@keyframes click-dissolve {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(3); /* 放大消散 */
+    }
+}
+/* Mobile menu toggle button */
+.menu-toggle {
+    display: none; /* Hidden by default on larger screens */
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: var(--text-color); /* Adjust color as needed */
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001; /* Ensure it's above the nav */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    /* Adjust navigation */
+    nav {
+        flex-direction: column;
+        align-items: flex-start; /* Align items to the start */
+        padding: 15px;
+        height: auto;
+        top: 10px;
+        width: 95%;
+        position: absolute; /* Change to absolute for mobile menu */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(255, 255, 255, 0.95); /* More opaque background */
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    nav .logo {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu-toggle {
+        display: block; /* Show button on mobile */
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 15px;
+        width: 100%;
+        text-align: center; /* Center menu items */
+        display: none; /* Hide menu by default */
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        max-height: 0;
+    }
+
+    nav ul.nav-open {
+        display: flex; /* Show menu when open */
+        max-height: 300px; /* Adjust based on content height */
+    }
+
+    nav ul li {
+        width: 100%;
+    }
+
+    nav ul li a {
+        padding: 10px;
+        font-size: 1.1em;
+        display: block; /* Make links block level for easier clicking */
+    }
+
+    nav .logo h1 a {
+        font-size: 1.4em;
+    }
+
+    /* Adjust hero section */
+    .hero-section .main-title {
+        font-size: 3em;
+    }
+
+    .hero-section .subtitle {
+        font-size: 1.4em;
+    }
+
+    /* Adjust section padding */
+    main section {
+        padding: 60px 3%;
+    }
+
+    main section h2 {
+        font-size: 2em;
+        margin-bottom: 30px;
+    }
+
+    /* Adjust grid layouts */
+    .skills-grid,
+    .portfolio-grid,
+    .blog-posts-list,
+    #shuo-shuo-container,
+    #contact .contact-boxes {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* Adjust about section image */
+    #about::before {
+        background-size: auto 60%; /* Make image smaller on mobile */
+        background-position: 50% 100%; /* Position image at the bottom center */
+    }
+
+    /* Adjust card padding */
+    .card-base {
+        padding: 20px;
+    }
+
+    /* Adjust blog horizontal container */
+    .blog-posts-horizontal-container .blog-post-item {
+        width: 300px; /* Adjust width for smaller screens */
+    }
+
+    /* Adjust announcement box */
+    .announcement-box {
+        max-width: 90%;
+        padding: 20px;
+    }
+
+    .announcement-box h3 {
+        font-size: 1.5em;
+    }
+
+    /* Adjust music button position */
+    #musicToggleBtn {
+        bottom: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2em;
+    }
+
+    /* Adjust footer */
+    footer {
+        padding: 20px 0; /* Reduce padding */
+        border-top: none; /* Remove border */
+        background-color: transparent; /* Remove background color */
+        color: #333; /* Adjust text color if needed */
+    }
+
+    footer a {
+        color: #333; /* Adjust link color if needed */
+    }
+}
