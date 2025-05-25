@@ -30,13 +30,13 @@ Aura 是一个充满科技感与未来主义风格的个人网站主题，专为
 5.  **移动端适配**: 主题已包含基础的移动端适配样式。如果您需要进一步调整，请修改 `style.css` 文件中的 `@media (max-width: 768px)` 媒体查询部分。
 
 ## 文件结构
-├── index.html          # 网站主页结构
-├── style.css           # 网站样式文件
-├── script.js           # 网站交互脚本
-├── loading.js          # 加载动画脚本 (如果独立)
-├── particles.js        # 粒子效果库 (如果使用)
-├── AiNiZaiHuangHunRiLuoShouXieTi-2.ttf # 字体文件
-├── 61tfq-qdrmd.mp3     # 背景音乐文件
-├── placeholder-profile.jpg # 示例图片
-├── sitelogo_new.png    # 网站Logo
-└── readme.md           # 主题介绍与使用文档
+. 
+├── 61tfq-qdrmd.mp3         # 背景音乐文件
+├── AiNiZaiHuangHunRiLuoShouXieTi-2.ttf # 自定义字体文件
+├── index.html              # 网站主页文件
+├── loading.js              # 加载动画相关脚本 (如果存在)
+├── placeholder-profile.jpg # 占位符或默认头像图片
+├── readme.md               # 主题介绍与使用文档
+├── script.js               # 网站交互和动画脚本
+├── sitelogo_new.png        # 网站 Logo 图片
+└── style.css               # 网站样式文件
